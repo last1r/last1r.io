@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Артём Бабанин — Портфолио</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7fc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 45px 20px 25px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 30px;
+        }
+        .header img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #38bdf8;
+            margin-bottom: 15px;
+            background: #fff;
+        }
+        .header h1 { font-size: 2.4em; margin-bottom: 5px; }
+        .header .title {
+            font-size: 1.25em;
+            font-weight: 400;
+            color: #bae6fd;
+            margin-bottom: 8px;
+        }
+        .header .slogan {
+            font-style: italic;
+            color: #e2e8f0;
+            margin-bottom: 18px;
+            font-size: 1.05em;
+        }
+        .contacts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .contacts a {
+            color: #f1f5f9;
+            text-decoration: none;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+        .contacts a:hover { background: rgba(255,255,255,0.25); }
+        /* Sections */
+        section {
+            background: white;
+            padding: 28px 30px;
+            margin-bottom: 25px;
+            border-radius: 18px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+        }
+        h2 {
+            font-size: 1.7em;
+            margin-bottom: 18px;
+            color: #0f172a;
+            border-bottom: 3px solid #38bdf8;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        .project {
+            background: #f8fafc;
+            border-left: 5px solid #38bdf8;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+        }
+        .project h3 { font-size: 1.25em; margin-bottom: 8px; color: #0f172a; }
+        .project p { color: #334155; margin-bottom: 10px; }
+        .project-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #0284c7;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .achievements {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .achievements li {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%2338bdf8"><path d="M10 1l2.39 4.84L18 7.11l-3.46 3.37.82 4.78L10 13.4l-4.36 2.86.82-4.78L3 7.11l4.61-.27L10 1z"/></svg>') left center no-repeat;
+            background-size: 1.3em;
+            padding-left: 2em;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.9em; }
+            .contacts { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Заглушка, пока данные не загружены -->
+        <div id="app">Загрузка...</div>
+    </div>
+    <footer>© 2026 Артём Бабанин</footer>
+
+    <script>
+        async function loadPortfolio() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                render(data);
+            } catch (e) {
+                document.getElementById('app').innerHTML = 'Ошибка загрузки данных. Проверь, что файл data.json рядом.';
+                console.error(e);
+            }
+        }
+
+        function render(d) {
+            const html = `
+                <div class="header">
+                    <img src="${d.photo}" alt="Фото" />
+                    <h1>${d.name}</h1>
+                    <div class="title">${d.title}</div>
+                    <div class="slogan">${d.slogan}</div>
+                    <div class="contacts">
+                        <a href="mailto:${d.contacts.email}">Email</a>
+                        <a href="${d.contacts.github}" target="_blank">GitHub</a>
+                        <a href="${d.contacts.codewars}" target="_blank">CodeWars</a>
+                        <a href="${d.contacts.telegram}" target="_blank">Telegram</a>
+                        <a href="${d.contacts.vk}" target="_blank">VK</a>
+                    </div>
+                </div>
+
+                <section>
+                    <h2>Обо мне</h2>
+                    <p>${d.about}</p>
+                </section>
+
+                <section>
+                    <h2>Навыки</h2>
+                    <div class="skills">
+                        ${d.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Проекты и опыт</h2>
+                    ${d.projects.map(p => `
+                        <div class="project">
+                            <h3>${p.name}</h3>
+                            <p>${p.description}</p>
+                            <div class="project-links">
+                                ${p.link ? `<a href="${p.link}" target="_blank">Код / GitHub</a>` : ''}
+                                ${p.demo ? `<a href="${p.demo}" target="_blank">Демо</a>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </section>
+
+                <section>
+                    <h2>Достижения и сертификаты</h2>
+                    <ul class="achievements">
+                        ${d.achievements.map(a => `<li>${a}</li>`).join('')}
+                    </ul>
+                </section>
+            `;
+            document.getElementById('app').innerHTML = html;
+        }
+
+        loadPortfolio();
+    </script>
+</body>
+</html>
