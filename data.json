@@ -8,38 +8,56 @@
     "github": "https://github.com/last1r",
     "codewars": "https://www.codewars.com/users/last1r",
     "telegram": "https://t.me/last1r",
-    "vk": "https://vk.ru/id605896910"
+    "vk": "https://vk.com/id605896910"
   },
-  "about": "Python-программист с опытом более 5 лет. Люблю своё дело, постоянно учусь и совершенствуюсь. Активно участвую в технологических конкурсах и проектах. Специализируюсь на backend-разработке, создании Telegram-ботов, интеграции нейросетей (LLM, компьютерное зрение). Увлечён построением надёжных систем и полезных образовательных инструментов.",
+  "about": [
+    "Python-программист с опытом более 5 лет. Люблю своё дело, постоянно учусь и совершенствуюсь.",
+    "Специализируюсь на backend-разработке, создании Telegram-ботов, интеграции нейросетей (LLM, компьютерное зрение).",
+    "Активно участвую в технологических конкурсах и проектах. Увлечён построением надёжных систем и полезных образовательных инструментов."
+  ],
   "skills": [
-    "Python (Aiogram, asyncio, OpenCV и др.)",
-    "SQLite / MySQL / aiosqlite",
-    "YandexGPT / LLM интеграция",
-    "Промптинг и работа с нейросетями",
-    "Компьютерное зрение",
-    "Git",
-    "C# / Unity (базовый)",
-    "Парсинг данных",
-    "Telegram Bot API"
+    {"name": "Python (Aiogram, asyncio, OpenCV)", "level": "advanced", "category": "🐍 Основной стек"},
+    {"name": "SQLite / MySQL / aiosqlite", "level": "advanced", "category": "🗄 Базы данных"},
+    {"name": "YandexGPT / LLM интеграция", "level": "advanced", "category": "🤖 AI и нейросети"},
+    {"name": "Промптинг и работа с нейросетями", "level": "intermediate", "category": "🤖 AI и нейросети"},
+    {"name": "Компьютерное зрение (MediaPipe)", "level": "intermediate", "category": "👁 Компьютерное зрение"},
+    {"name": "Git", "level": "advanced", "category": "🛠 Инструменты"},
+    {"name": "C# / Unity (базовый)", "level": "basic", "category": "🎮 Игровые движки"},
+    {"name": "Парсинг данных", "level": "intermediate", "category": "📊 Данные"},
+    {"name": "Telegram Bot API", "level": "advanced", "category": "🐍 Основной стек"}
   ],
   "projects": [
     {
       "name": "StudyMate — образовательный Telegram-бот с ИИ",
       "description": "Бот-репетитор по школьным предметам на основе ФГОС. Реализует замкнутый цикл обучения: тестирование → разбор ошибок → индивидуальное домашнее задание с дедлайном. Использует YandexGPT для контролируемой генерации контента, JSON-валидацию и fallback-стратегию. Прошёл пилотирование с группой учителей и репетиторов (10 чел.), получил высокие оценки. Победитель регионального трека конкурса «Большие вызовы 2025-2026».",
-      "link": null,
-      "demo": null
+      "technologies": ["Aiogram", "asyncio", "YandexGPT", "SQLite", "JSON Schema"],
+      "badges": [
+        {"text": "🏆 Победитель «Большие вызовы 2025-26»", "type": "win"}
+      ],
+      "icon": "📚",
+      "link": "https://github.com/last1r/studymate",
+      "demo": "https://t.me/studymate_bot"
     },
     {
       "name": "Тренер по физической активности с компьютерным зрением",
       "description": "Приложение на Python (OpenCV, MediaPipe) для анализа выполнения физических упражнений детьми. Распознаёт позы и движения по камере, даёт персонализированные рекомендации и корректировки. Финалист конкурса «Большие вызовы 2023-2024» в направлении «Умный город», награждён как лучший социальный проект.",
-      "link": null,
+      "technologies": ["Python", "OpenCV", "MediaPipe", "NumPy"],
+      "badges": [
+        {"text": "🥈 Финалист «Большие вызовы 2023-24»", "type": ""},
+        {"text": "❤️ Лучший социальный проект", "type": "win"}
+      ],
+      "icon": "🤸",
+      "link": "https://github.com/last1r/physical-trainer",
       "demo": null
     },
     {
       "name": "Бот для школы цифровых технологий",
       "description": "Telegram-бот для учеников: личный дневник, запись на занятия, просмотр информации о преподавателях и направленях обучения.",
-      "link": null,
-      "demo": null
+      "technologies": ["Aiogram", "SQLite", "Python"],
+      "badges": [],
+      "icon": "🏫",
+      "link": "https://github.com/last1r/school-bot",
+      "demo": "https://t.me/school_digital_bot"
     }
   ],
   "achievements": [
