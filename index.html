@@ -4,81 +4,168 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Артём Бабанин — Портфолио</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f4f7fc;
             color: #1e293b;
-            line-height: 1.6;
+            line-height: 1.7;
+            scroll-behavior: smooth;
         }
         .container {
-            max-width: 860px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
-        /* Header */
+        /* ---------- Header ---------- */
         .header {
-            text-align: center;
-            padding: 45px 20px 25px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            border-radius: 0 0 30px 30px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0b1424 0%, #182235 100%);
+            padding: 60px 20px 40px;
+            border-radius: 0 0 40px 40px;
             margin-bottom: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle at 25% 40%, rgba(56,189,248,0.12) 1px, transparent 1px);
+            background-size: 45px 45px;
+            animation: gridMove 40s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes gridMove {
+            from { transform: translate(0,0); }
+            to { transform: translate(45px, 45px); }
         }
         .header img {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #38bdf8;
-            margin-bottom: 15px;
-            background: #fff;
+            box-shadow: 0 0 30px rgba(56,189,248,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
-        .header h1 { font-size: 2.4em; margin-bottom: 5px; }
+        .header img:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 45px rgba(56,189,248,0.8);
+        }
+        .header h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin: 18px 0 6px;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
         .header .title {
             font-size: 1.25em;
             font-weight: 400;
             color: #bae6fd;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
         }
         .header .slogan {
             font-style: italic;
-            color: #e2e8f0;
-            margin-bottom: 18px;
+            font-weight: 400;
+            color: #cbd5e1;
+            margin-bottom: 22px;
             font-size: 1.05em;
+            position: relative;
+            z-index: 1;
         }
         .contacts {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
         }
         .contacts a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             color: #f1f5f9;
             text-decoration: none;
-            background: rgba(255,255,255,0.1);
-            padding: 6px 16px;
-            border-radius: 20px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 500;
             font-size: 0.95em;
-            transition: background 0.2s;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.25s;
         }
-        .contacts a:hover { background: rgba(255,255,255,0.25); }
-        /* Sections */
+        .contacts a:hover {
+            background: rgba(56,189,248,0.25);
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        /* ---------- Sections ---------- */
         section {
             background: white;
-            padding: 28px 30px;
+            padding: 35px 30px;
             margin-bottom: 25px;
-            border-radius: 18px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            border-radius: 20px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s ease;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        section:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
         }
         h2 {
-            font-size: 1.7em;
-            margin-bottom: 18px;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 20px;
             color: #0f172a;
-            border-bottom: 3px solid #38bdf8;
             display: inline-block;
-            padding-bottom: 5px;
+            border-bottom: 3px solid #38bdf8;
+            padding-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+        /* ---------- About ---------- */
+        .about-text p {
+            margin-bottom: 14px;
+            font-size: 1.05em;
+            color: #334155;
+        }
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+        /* ---------- Skills ---------- */
+        .skill-category {
+            margin-bottom: 22px;
+        }
+        .skill-category h3 {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .skills {
             display: flex;
@@ -86,55 +173,164 @@
             gap: 10px;
         }
         .skill-tag {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 6px 16px;
-            border-radius: 20px;
+            padding: 7px 18px;
+            border-radius: 25px;
             font-weight: 500;
-            font-size: 0.95em;
+            font-size: 0.9em;
+            letter-spacing: 0.2px;
         }
+        .skill-tag.advanced {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+        .skill-tag.intermediate {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+        .skill-tag.basic {
+            background: #f2f2f2;
+            color: #4b5563;
+            border: 1px solid #d1d5db;
+        }
+        /* ---------- Projects ---------- */
         .project {
+            display: flex;
+            gap: 20px;
             background: #f8fafc;
-            border-left: 5px solid #38bdf8;
-            padding: 18px 20px;
-            margin-bottom: 18px;
-            border-radius: 10px;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+            align-items: flex-start;
         }
-        .project h3 { font-size: 1.25em; margin-bottom: 8px; color: #0f172a; }
-        .project p { color: #334155; margin-bottom: 10px; }
+        .project:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 8px 20px rgba(56,189,248,0.1);
+            transform: translateY(-2px);
+        }
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            background: #e0f2fe;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .project-content {
+            flex: 1;
+        }
+        .project h3 {
+            font-size: 1.35em;
+            font-weight: 700;
+            margin: 0 0 8px;
+            color: #0f172a;
+        }
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .badge {
+            background: #fef9c3;
+            color: #854d0e;
+            padding: 3px 12px;
+            border-radius: 16px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+        .badge.win {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .project p {
+            color: #475569;
+            margin-bottom: 12px;
+            font-size: 0.98em;
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .project-tech span {
+            background: #e2e8f0;
+            color: #334155;
+            padding: 3px 14px;
+            border-radius: 16px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
         .project-links a {
             display: inline-block;
-            margin-right: 15px;
-            color: #0284c7;
-            font-weight: 600;
+            margin-right: 12px;
             text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            color: #0284c7;
+            transition: color 0.2s;
         }
+        .project-links a:hover {
+            color: #0369a1;
+            text-decoration: underline;
+        }
+        /* ---------- Achievements ---------- */
         .achievements {
-            list-style-type: none;
-            padding-left: 0;
+            list-style: none;
+            position: relative;
+            padding-left: 32px;
+            border-left: 2px solid #e2e8f0;
         }
         .achievements li {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%2338bdf8"><path d="M10 1l2.39 4.84L18 7.11l-3.46 3.37.82 4.78L10 13.4l-4.36 2.86.82-4.78L3 7.11l4.61-.27L10 1z"/></svg>') left center no-repeat;
-            background-size: 1.3em;
-            padding-left: 2em;
-            margin-bottom: 10px;
+            position: relative;
+            margin-bottom: 18px;
+            padding-left: 20px;
             color: #1e293b;
+            font-weight: 500;
         }
+        .achievements li::before {
+            content: "";
+            position: absolute;
+            left: -39px;
+            top: 7px;
+            width: 12px;
+            height: 12px;
+            background: #38bdf8;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 3px #38bdf8;
+        }
+        .achievements li:last-child {
+            margin-bottom: 0;
+        }
+        /* ---------- Footer ---------- */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 25px 20px;
             color: #64748b;
             font-size: 0.9em;
+            letter-spacing: 0.3px;
         }
+        /* ---------- Responsive ---------- */
         @media (max-width: 600px) {
-            .header h1 { font-size: 1.9em; }
-            .contacts { gap: 10px; }
+            .header h1 { font-size: 2em; }
+            .contacts { gap: 8px; }
+            .project { flex-direction: column; }
+            .project-icon { align-self: center; }
+            section { padding: 25px 20px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Заглушка, пока данные не загружены -->
         <div id="app">Загрузка...</div>
     </div>
     <footer>© 2026 Артём Бабанин</footer>
@@ -152,55 +348,108 @@
         }
 
         function render(d) {
+            // Обработка about: если строка, разбиваем по \n, иначе используем массив
+            let aboutParagraphs = [];
+            if (typeof d.about === 'string') {
+                aboutParagraphs = d.about.split('\n').filter(p => p.trim() !== '');
+            } else if (Array.isArray(d.about)) {
+                aboutParagraphs = d.about;
+            }
+
+            // Сборка секции about
+            const aboutHTML = aboutParagraphs.map(p => `<p>${p}</p>`).join('');
+
+            // Навыки: предполагаем, что skills – массив объектов {name, level, category}
+            // Группируем по category
+            const categories = {};
+            d.skills.forEach(skill => {
+                const cat = skill.category || 'Другие';
+                if (!categories[cat]) categories[cat] = [];
+                categories[cat].push(skill);
+            });
+            let skillsHTML = '';
+            for (const [cat, items] of Object.entries(categories)) {
+                skillsHTML += `<div class="skill-category"><h3>${cat}</h3><div class="skills">`;
+                items.forEach(s => {
+                    skillsHTML += `<span class="skill-tag ${s.level || 'intermediate'}">${s.name}</span>`;
+                });
+                skillsHTML += `</div></div>`;
+            }
+
+            // Проекты
+            let projectsHTML = '';
+            d.projects.forEach(p => {
+                const techTags = (p.technologies || []).map(t => `<span>${t}</span>`).join('');
+                const badgesHTML = (p.badges || []).map(b => `<span class="badge ${b.type || ''}">${b.text}</span>`).join('');
+                const iconEmoji = p.icon || '💼';
+                const linksHTML = [];
+                if (p.link) linksHTML.push(`<a href="${p.link}" target="_blank">📁 Исходный код</a>`);
+                if (p.demo) linksHTML.push(`<a href="${p.demo}" target="_blank">🌐 Демо</a>`);
+                projectsHTML += `
+                    <div class="project">
+                        <div class="project-icon">${iconEmoji}</div>
+                        <div class="project-content">
+                            <h3>${p.name}</h3>
+                            <div class="badge-list">${badgesHTML}</div>
+                            <p>${p.description}</p>
+                            <div class="project-tech">${techTags}</div>
+                            <div class="project-links">${linksHTML.join('')}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Достижения
+            const achievementsHTML = d.achievements.map(a => `<li>${a}</li>`).join('');
+
+            // Вставка в DOM
             const html = `
                 <div class="header">
-                    <img src="${d.photo}" alt="Фото" />
+                    <img src="${d.photo}" alt="Фото Артёма" />
                     <h1>${d.name}</h1>
                     <div class="title">${d.title}</div>
                     <div class="slogan">${d.slogan}</div>
                     <div class="contacts">
-                        <a href="mailto:${d.contacts.email}">Email</a>
-                        <a href="${d.contacts.github}" target="_blank">GitHub</a>
-                        <a href="${d.contacts.codewars}" target="_blank">CodeWars</a>
-                        <a href="${d.contacts.telegram}" target="_blank">Telegram</a>
-                        <a href="${d.contacts.vk}" target="_blank">VK</a>
+                        <a href="mailto:${d.contacts.email}">✉️ Email</a>
+                        <a href="${d.contacts.github}" target="_blank">🐙 GitHub</a>
+                        <a href="${d.contacts.codewars}" target="_blank">⚔️ CodeWars</a>
+                        <a href="${d.contacts.telegram}" target="_blank">📬 Telegram</a>
+                        <a href="${d.contacts.vk}" target="_blank">🔵 VK</a>
                     </div>
                 </div>
 
-                <section>
+                <section id="about-section">
                     <h2>Обо мне</h2>
-                    <p>${d.about}</p>
+                    <div class="about-text">${aboutHTML}</div>
                 </section>
 
-                <section>
+                <section id="skills-section">
                     <h2>Навыки</h2>
-                    <div class="skills">
-                        ${d.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
-                    </div>
+                    ${skillsHTML}
                 </section>
 
-                <section>
+                <section id="projects-section">
                     <h2>Проекты и опыт</h2>
-                    ${d.projects.map(p => `
-                        <div class="project">
-                            <h3>${p.name}</h3>
-                            <p>${p.description}</p>
-                            <div class="project-links">
-                                ${p.link ? `<a href="${p.link}" target="_blank">Код / GitHub</a>` : ''}
-                                ${p.demo ? `<a href="${p.demo}" target="_blank">Демо</a>` : ''}
-                            </div>
-                        </div>
-                    `).join('')}
+                    ${projectsHTML}
                 </section>
 
-                <section>
+                <section id="achievements-section">
                     <h2>Достижения и сертификаты</h2>
-                    <ul class="achievements">
-                        ${d.achievements.map(a => `<li>${a}</li>`).join('')}
-                    </ul>
+                    <ul class="achievements">${achievementsHTML}</ul>
                 </section>
             `;
             document.getElementById('app').innerHTML = html;
+
+            // Анимация появления секций
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+            sections.forEach(sec => observer.observe(sec));
         }
 
         loadPortfolio();
