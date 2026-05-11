@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Артём Бабанин — Портфолио</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
@@ -22,6 +21,7 @@
             margin: 0 auto;
             padding: 20px;
         }
+
         /* ---------- Header ---------- */
         .header {
             position: relative;
@@ -116,6 +116,7 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0,0,0,0.3);
         }
+
         /* ---------- Sections ---------- */
         section {
             background: white;
@@ -123,10 +124,12 @@
             margin-bottom: 25px;
             border-radius: 20px;
             box-shadow: 0 5px 18px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            /* Анимация появления */
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s ease;
+            transform: translateY(25px);
+            transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: opacity, transform;
         }
         section.visible {
             opacity: 1;
@@ -135,6 +138,7 @@
         section:hover {
             box-shadow: 0 8px 25px rgba(0,0,0,0.07);
         }
+
         h2 {
             font-size: 2em;
             font-weight: 700;
@@ -145,6 +149,7 @@
             padding-bottom: 6px;
             letter-spacing: -0.3px;
         }
+
         /* ---------- About ---------- */
         .about-text p {
             margin-bottom: 14px;
@@ -154,6 +159,7 @@
         .about-text p:last-child {
             margin-bottom: 0;
         }
+
         /* ---------- Skills ---------- */
         .skill-category {
             margin-bottom: 22px;
@@ -194,6 +200,7 @@
             color: #4b5563;
             border: 1px solid #d1d5db;
         }
+
         /* ---------- Projects ---------- */
         .project {
             display: flex;
@@ -282,6 +289,7 @@
             color: #0369a1;
             text-decoration: underline;
         }
+
         /* ---------- Achievements ---------- */
         .achievements {
             list-style: none;
@@ -311,6 +319,7 @@
         .achievements li:last-child {
             margin-bottom: 0;
         }
+
         /* ---------- Footer ---------- */
         footer {
             text-align: center;
@@ -319,13 +328,19 @@
             font-size: 0.9em;
             letter-spacing: 0.3px;
         }
-        /* ---------- Responsive ---------- */
+
+        /* ---------- Адаптив для мобильных ---------- */
         @media (max-width: 600px) {
             .header h1 { font-size: 2em; }
             .contacts { gap: 8px; }
             .project { flex-direction: column; }
             .project-icon { align-self: center; }
-            section { padding: 25px 20px; }
+            section {
+                padding: 25px 20px;
+                /* Ускоряем анимацию на мобильных */
+                transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                            transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            }
         }
     </style>
 </head>
@@ -348,19 +363,16 @@
         }
 
         function render(d) {
-            // Обработка about: если строка, разбиваем по \n, иначе используем массив
+            // Обработка about
             let aboutParagraphs = [];
             if (typeof d.about === 'string') {
                 aboutParagraphs = d.about.split('\n').filter(p => p.trim() !== '');
             } else if (Array.isArray(d.about)) {
                 aboutParagraphs = d.about;
             }
-
-            // Сборка секции about
             const aboutHTML = aboutParagraphs.map(p => `<p>${p}</p>`).join('');
 
-            // Навыки: предполагаем, что skills – массив объектов {name, level, category}
-            // Группируем по category
+            // Навыки
             const categories = {};
             d.skills.forEach(skill => {
                 const cat = skill.category || 'Другие';
@@ -402,7 +414,7 @@
             // Достижения
             const achievementsHTML = d.achievements.map(a => `<li>${a}</li>`).join('');
 
-            // Вставка в DOM
+            // Собираем итоговый HTML
             const html = `
                 <div class="header">
                     <img src="${d.photo}" alt="Фото Артёма" />
@@ -440,15 +452,26 @@
             `;
             document.getElementById('app').innerHTML = html;
 
-            // Анимация появления секций
+            // Настраиваем плавное появление секций
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        const index = Array.from(sections).indexOf(entry.target);
+                        // Небольшая каскадная задержка
+                        entry.target.style.transitionDelay = `${index * 0.08}s`;
                         entry.target.classList.add('visible');
+                        // Прекращаем наблюдение, чтобы не перезапускать анимацию
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.2 });
+            }, {
+                // Секция начинает появляться, когда хотя бы 5% её площади видно
+                threshold: 0.05,
+                // Дополнительно срабатывает за 50px до появления в зоне видимости
+                rootMargin: '0px 0px 50px 0px'
+            });
+
             sections.forEach(sec => observer.observe(sec));
         }
 
